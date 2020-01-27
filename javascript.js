@@ -14,14 +14,16 @@ var answersToDisplayCounter = 1
 var correctAnswer = ["1", "4", "3"]
 var correctAnswerCounter = 0
 var timeLeft = 0
+var submitEmail = document.getElementById("saveEmail")
+var highscore = 0
 
 quizTimer.textContent = "Time passed: " + timeLeft
 
 starterButton.addEventListener("click", function(){
-    // hideClass("inQuiz")
     document.getElementById("beforeQuiz").style.display = "None"
     document.getElementById("inQuiz").style.display = "Block"
     timeLeft = questionsArry.length * 15
+    highscore = 0
     questionToDisplay.textContent = questionsArry[0]
     answersToDisplayA.textContent = answersArry[0][0]
     answersToDisplayB.textContent = answersArry[0][1]
@@ -37,6 +39,7 @@ answersToDisplayD.addEventListener("click", clickedButton)
 
 function clickedButton(){
         if(questionsArryCounter >= questionsArry.length){
+        highscore = timeLeft
         timeLeft = 0
         console.log("done!")
         // console.log(questionsArryCounter)
@@ -61,10 +64,6 @@ function clickedButton(){
     answersToDisplayCounter ++
     correctAnswerCounter ++
 }
-//event listener
-// nextButton.addEventListener("click", function(){
-//    console.log(document.querySelector(".active"))
-// })
 
 function setTime() {
     var timerInterval = setInterval(function() {
@@ -79,8 +78,20 @@ function setTime() {
           return
       }
       timeLeft --
-      
     }, 1000);
   }
+
+submitEmail.addEventListener("click", saveUser)
+
+function saveUser(){
+    var user = {email: document.getElementById("emailInput").value, score: highscore,}
+    localStorage.setItem("userHighscore",JSON.stringify(user))
+    console.log(user)
+}
+//   //saves top 3 highscore
+//   function saveHighscore(){
+//     localStorage.getItem()
+//     highScore = timeLeft
+//   }
   
   
