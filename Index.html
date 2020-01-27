@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Quiz</title>
+  </head>
+  <body>
+    <br>
+    <div class = "fullFrame container">
+        <div class = "timerDisplay container">
+            <!-- timelapse -->
+            <p class = "col-sm-12" id = "secondsToDisplay"></p>
+        </div>
+
+                <!-- maincontent page -->
+            <div class="container" id="beforeQuiz">
+              <div class="container" id = "introPage">
+                  <h2 class="row">Welcome to the Quiz</h2>
+                  <p class="row">Press start below to begin!</p>
+              </div>
+              <button id = "starter">start</button>
+           
+            </div>  
+
+         <!-- quiz question -->
+      <div id="inQuiz">
+            <div class=" container">
+                <p id = "questionDisplay"></p>
+            </div>
+
+            <!-- quiz answers -->
+            <div id ="buttonGroup">
+                <button class= "userOption" id = "option1"></button>
+                <br>
+                <button class= "userOption" id = "option2"></button>
+                <br>
+                <button class= "userOption" id = "option3"></button>
+                <br>
+                <button class= "userOption" id = "option4"></button>
+                <br><br>
+            </div>
+                   <!-- <button id = "nextButton">Next</button> -->
+        <br><br>
+
+        <div class="feedback">
+          <p id="answerFeedback"></p>
+        </div>
+
+      </div>
+
+      <!-- Results -->
+      <div id="afterQuiz" class = "container">
+        <div class = "row">
+          
+          <h2 class="col-sm-12">You have completed the quiz!</h2>
+
+          <p class = "col-sm-3">Please enter your email:</p>
+          <input class = "col-sm-4" type="text" name="" id="emailInput">
+        </div>
+
+      </div>
+        
+ 
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="javascript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+.fullFrame{
+    max-width: 900px;
+    min-width: 300px;
+    margin: auto;
+    background-color: bisque;
+}
+
+#inQuiz, #afterQuiz{
+    display: none;
+}
+
+.timerDisplay{
+    width: 100%;
+    background-color: coral;
+}
+
+#secondsToDisplay{
+    text-align: right;
+    width: 100%;
+}
+
+.answerChoice{
+    background-color: blue;
+    color: white;
+    height: 20px;
+    margin: 5px;
+}
+
+.feedback{
+    color: grey;
+    border-top-color: black;
+    border-top-style: solid;
+}
