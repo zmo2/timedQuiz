@@ -8,6 +8,11 @@ var inQuiz = document.getElementById("inQuiz")
 var restartButton = document.getElementById("homePage")
 var starterButton = document.getElementById("starter")
 var isCorrect = document.getElementById("answerFeedback")
+var historicalHiscoreObj = [JSON.parse(localStorage.getItem("userHighscore"))]
+var topScorerDisplay = document.getElementById("userHighscore")
+var highscoreDisplay = document.getElementById("displayHighscore")
+var clearHighscore = document.getElementById("clearHighscore")
+var submitEmail = document.getElementById("saveEmail")
 var questionsArry = ["Question 1. Which of the following is an Array?", "Question 2. What is === mean?" , "Question 3. what is ||?"]
 var questionsArryCounter = 1
 var answersArry = [["1", "Hello", "[1,2,3,4,5]", "1+1"], ["yes", "or", "absolute equal", "maybe"], ["eleven", "or", "for", "end"]]
@@ -15,15 +20,10 @@ var answersToDisplayCounter = 1
 var correctAnswer = ["3", "3", "2"]
 var correctAnswerCounter = 0
 var timeLeft = 0
-var submitEmail = document.getElementById("saveEmail")
-var highscore = 0
-var thirdScore = 0
-var historicalHiscoreObj = [JSON.parse(localStorage.getItem("userHighscore"))]
-var topScorerDisplay = document.getElementById("userHighscore")
-var highscoreDisplay = document.getElementById("displayHighscore")
-var clearHighscore = document.getElementById("clearHighscore")
 
-quizTimer.textContent = "Time passed: " + timeLeft
+var highscore = 0
+
+quizTimer.textContent = "Time Remaining: " + timeLeft
 
 restartButton.addEventListener("click", function(){
     location.reload(true);
@@ -35,7 +35,7 @@ clearHighscore.addEventListener("click", function(){
 
 starterButton.addEventListener("click", function(){
     document.getElementById("beforeQuiz").style.display = "None"
-    document.getElementById("inQuiz").style.display = "Block"
+    inQuiz.style.display = "Block"
     timeLeft = questionsArry.length * 15
     // localStorage.clear()
     historicalHiscoreObj = JSON.parse(localStorage.getItem("userHighscore"))
@@ -90,7 +90,7 @@ function setTime() {
       if(timeLeft <= 0) {
           timeLeft = 0
           clearInterval(timerInterval);
-          document.getElementById("inQuiz").style.display = "None"
+          inQuiz.style.display = "None"
           document.getElementById("afterQuiz").style.display = "Block"
           return
       }
@@ -101,7 +101,6 @@ function setTime() {
 submitEmail.addEventListener("click", saveUser)
 
 function saveUser(){
-    
     console.log("old" + highscore)
     console.log(historicalHiscoreObj)
     if(historicalHiscoreObj === null){

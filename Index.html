@@ -17,15 +17,14 @@
             <!-- timelapse -->
             <p class = "col-sm-12" id = "secondsToDisplay"></p>
         </div>
-
                 <!-- maincontent page -->
             <div class="container" id="beforeQuiz">
               <div class="container" id = "introPage">
                   <h2 class="row">Welcome to the Quiz</h2>
                   <p class="row">Press start below to begin!</p>
               </div>
-              <button id = "starter">start</button>
-           
+              
+              <button class="container" id = "starter">start</button>
             </div>  
 
          <!-- quiz question -->
@@ -35,7 +34,7 @@
             </div>
 
             <!-- quiz answers -->
-            <div id ="buttonGroup">
+            <div class="container" id ="buttonGroup">
                 <button class= "userOption" id = "option1"></button>
                 <br>
                 <button class= "userOption" id = "option2"></button>
@@ -55,21 +54,23 @@
 
       <!-- Results -->
       <div id="afterQuiz" class = "container">
-        <div class = "row">
-          
           <h2 class="col-sm-12">You have completed the quiz!</h2>
 
-          <p class = "col-sm-3">Please enter your email:</p>
-          <input class = "col-sm-4" type="text" name="" id="emailInput">
-
-          <button id = "saveEmail">submit</button>
+          <div class = "container">
+              <span class = "insutDescription">Please enter your email:</span>
+              <input class = "col-sm-4" type="text" name="" id="emailInput">
+              <button id = "saveEmail">submit</button>
         </div>
-        <div class = "row">
-          <p class="col-sm-4" id = "userHighscore"></p>
-          <p class="col-sm-2" id = "displayHighscore"></p>
 
-          <button id = "homePage">HomePage</button>
-          <button id= "clearHighscore">clear highscore</button>
+        <div class = "container">
+          <br>
+              <p>Highscore:</p>
+              <span class="" id = "userHighscore"></span>
+              <p class="" id = "displayHighscore"></p>
+              <div class = "container">
+                    <button class= "col-sm-6"id = "homePage">HomePage</button>
+                    <button class="col-sm=6"id= "clearHighscore">clear highscore</button>
+              </div>
         </div>
 
       </div>

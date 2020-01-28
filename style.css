@@ -2,16 +2,21 @@
     max-width: 900px;
     min-width: 300px;
     margin: auto;
-    background-color: bisque;
+    background-color: #FBEAEB;
+    color:#2f3c7e;
 }
 
 #inQuiz, #afterQuiz{
     display: none;
 }
 
+#afterQuiz{
+    margin: auto;
+    text-align: left;
+}
 .timerDisplay{
     width: 100%;
-    background-color: coral;
+    margin: none;
 }
 
 #secondsToDisplay{
@@ -19,15 +24,39 @@
     width: 100%;
 }
 
-.answerChoice{
-    background-color: blue;
-    color: white;
-    height: 20px;
+.userOption{
+    background-color: #2f3c7e;
+    font-family: 'Times New Roman', Times, serif;
+    color: #FBEAEB;
+    font-size: 18px;
     margin: 5px;
 }
 
 .feedback{
-    color: grey;
-    border-top-color: black;
+    color: #2f3c7e;
+    border-top-color: grey;
     border-top-style: solid;
+}
+
+#homePage, #clearHighscore, #saveEmail, #starter{
+    background-color: #2f3c7e;
+    color: #FBEAEB;
+    font-weight: bold;
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+}
+
+.inputDescription, #questionDisplay{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    width: fit-content;
+}
+
+#emailInput{
+    height: 30px;
+    margin:none;
+    padding-right: 10px; 
+    padding-left: 10px;
+    
 }
