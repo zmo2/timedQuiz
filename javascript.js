@@ -20,26 +20,23 @@ var answersToDisplayCounter = 1
 var correctAnswer = ["3", "3", "2"]
 var correctAnswerCounter = 0
 var timeLeft = 0
-
+var lowScore = 0
 var highscore = 0
 
+//display items
 quizTimer.textContent = "Time Remaining: " + timeLeft
 
-restartButton.addEventListener("click", function(){
-    location.reload(true);
-})
 
-clearHighscore.addEventListener("click", function(){
-    localStorage.clear()
-})
+//buttons
 
+
+//initialize/setup the quiz and start the timer
 starterButton.addEventListener("click", function(){
     document.getElementById("beforeQuiz").style.display = "None"
     inQuiz.style.display = "Block"
     timeLeft = questionsArry.length * 15
-    // localStorage.clear()
     historicalHiscoreObj = JSON.parse(localStorage.getItem("userHighscore"))
-    // console.log(historicalHiscoreObj)
+    sortHighscore()
     highscore = 0
     questionToDisplay.textContent = questionsArry[0]
     answersToDisplayA.textContent = answersArry[0][0]
@@ -49,40 +46,41 @@ starterButton.addEventListener("click", function(){
     setTime()
 })
 
+//quiz mc options
 answersToDisplayA.addEventListener("click", clickedButton)
 answersToDisplayB.addEventListener("click", clickedButton)
 answersToDisplayC.addEventListener("click", clickedButton)
 answersToDisplayD.addEventListener("click", clickedButton)
 
+//function that checks if answer is correct on MC, checks if end of quiz 
 function clickedButton(){
     //checks if answer correct
     if(this.id.substring(6,7)===correctAnswer[correctAnswerCounter]){
         isCorrect.textContent = "Correct!"
-    } else {
-        isCorrect.textContent = "Wrong!"
-        console.log(timeLeft)
-        timeLeft = timeLeft - 15
+        } else {
+            isCorrect.textContent = "Wrong!"
+            console.log(timeLeft)
+            timeLeft = timeLeft - 15
+        }
+        if(questionsArryCounter >= questionsArry.length){
+            console.log(timeLeft)
+            highscore = timeLeft
+            timeLeft = 0
+            return
+        }
+        //updates counter and moves to next question
+        questionToDisplay.textContent = questionsArry[questionsArryCounter]
+        questionsArryCounter ++
+        answersToDisplayA.textContent = answersArry[answersToDisplayCounter][0]
+        answersToDisplayB.textContent = answersArry[answersToDisplayCounter][1]
+        answersToDisplayC.textContent = answersArry[answersToDisplayCounter][2]
+        answersToDisplayD.textContent = answersArry[answersToDisplayCounter][3]
+        answersToDisplayCounter ++
+        correctAnswerCounter ++
+        sortHighscore()
     }
-    if(questionsArryCounter >= questionsArry.length){
-        console.log(timeLeft)
-        highscore = timeLeft
-        // thirdScore = timeLeft
-        timeLeft = 0
-        return
-    }
-    console.log(questionsArryCounter + " " + questionsArry.length)
- 
-    // console.log(this.textContent)
-    questionToDisplay.textContent = questionsArry[questionsArryCounter]
-    questionsArryCounter ++
-    answersToDisplayA.textContent = answersArry[answersToDisplayCounter][0]
-    answersToDisplayB.textContent = answersArry[answersToDisplayCounter][1]
-    answersToDisplayC.textContent = answersArry[answersToDisplayCounter][2]
-    answersToDisplayD.textContent = answersArry[answersToDisplayCounter][3]
-    answersToDisplayCounter ++
-    correctAnswerCounter ++
-}
 
+    //function to keep track of timer
 function setTime() {
     var timerInterval = setInterval(function() {
     //   minutesDisplay.textContent = Math.floor(totalSeconds/60)
@@ -98,13 +96,25 @@ function setTime() {
     }, 1000);
   }
 
+  //collects user email and checks if should be added to highscore
 submitEmail.addEventListener("click", saveUser)
 
-function saveUser(){
-    console.log("old" + highscore)
+// resets the page back to intro page
+restartButton.addEventListener("click", function(){
+    // location.reload(true);
+    console.log(lowScore)
     console.log(historicalHiscoreObj)
-    if(historicalHiscoreObj === null){
-        historicalHiscoreObj = [{email: document.getElementById("emailInput").value, score: highscore,}]
+})
+
+//clears highscores from local storage
+clearHighscore.addEventListener("click", function(){
+    localStorage.clear()
+})
+
+//saves the highscore if applicable
+function saveUser(){
+    if(historicalHiscoreObj === null || historicalHiscoreObj.length<3){
+        historicalHiscoreObj[historicalHiscoreObj.length] = [{email: document.getElementById("emailInput").value, score: highscore,}]
         localStorage.setItem("userHighscore", JSON.stringify(historicalHiscoreObj))
     }
     else{
@@ -112,9 +122,23 @@ function saveUser(){
     }
     topScorerDisplay.textContent = "email: " + historicalHiscoreObj[0].email
     highscoreDisplay.textContent = "score: " + historicalHiscoreObj[0].score
-    console.log(highscore)
 }
 
+var highscoreArr = []
+var topUserArr = []
+
+function sortHighscore(){
+    if(historicalHiscoreObj === null){
+                return
+            }else {
+                for(i=0; i<historicalHiscoreObj.length; i++){
+                    // topUserArr[i] = historicalHiscoreObj[i].email
+                    highscoreArr[i] = historicalHiscoreObj[i].score
+                }
+          highscoreArr.sort()
+          lowScore = highscoreArr[0]   
+    }
+}
 // function to sort historical highscore 
 // function sortScore(){
 //     if(historicalHiscoreObj === null || historicalHiscoreObj.length<2){
@@ -127,11 +151,12 @@ function saveUser(){
 //     }
 
 // }
-
+// checks if user score is larger than highscore
 function updateHighscore(){
-            if(highscore > historicalHiscoreObj[0].score){
-                historicalHiscoreObj[0].score = highscore
-                historicalHiscoreObj[0].email = document.getElementById("emailInput").value
+            if(highscore > lowScore){
+                var replaceIndex = highscoreArr.indexOf(lowScore)
+                historicalHiscoreObj[replaceIndex].score = highscore
+                historicalHiscoreObj[replaceIndex].email = document.getElementById("emailInput").value
                 localStorage.setItem("userHighscore", JSON.stringify(historicalHiscoreObj))
             }else{
             }
