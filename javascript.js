@@ -23,7 +23,7 @@ var lowScore = 0
 var highscore = 0
 
 //display timer
-quizTimer.textContent = "Time Remaining: " + timeLeft
+// quizTimer.textContent = "Time Remaining: " + timeLeft
 
 //initialize/setup the quiz and start the timer
 starterButton.addEventListener("click", function(){
@@ -75,7 +75,7 @@ function clickedButton(){
 function setTime() {
     var timerInterval = setInterval(function() {
     //   minutesDisplay.textContent = Math.floor(totalSeconds/60)
-        secondsToDisplay.textContent = "Time passed: " + timeLeft
+        secondsToDisplay.textContent = "Time remaining: " + timeLeft
       if(timeLeft <= 0) {
           timeLeft = 0
           clearInterval(timerInterval);

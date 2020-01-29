@@ -16,12 +16,14 @@
 }
 .timerDisplay{
     width: 100%;
+    height: 20px;
     margin: none;
 }
 
 #secondsToDisplay{
     text-align: right;
     width: 100%;
+    height: 100%;
 }
 
 .userOption{
@@ -44,7 +46,7 @@
     font-weight: bold;
     width: fit-content;
     height: fit-content;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 .inputDescription, #questionDisplay{
@@ -58,5 +60,4 @@
     margin:none;
     padding-right: 10px; 
     padding-left: 10px;
-    
 }
