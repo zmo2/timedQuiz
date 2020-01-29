@@ -10,7 +10,6 @@ var starterButton = document.getElementById("starter")
 var isCorrect = document.getElementById("answerFeedback")
 var historicalHiscoreObj = []
 var topScorerDisplay = document.getElementById("userHighscore")
-var highscoreDisplay = document.getElementById("displayHighscore")
 var clearHighscore = document.getElementById("clearHighscore")
 var submitEmail = document.getElementById("saveEmail")
 var questionsArry = ["Question 1. Which of the following is an Array?", "Question 2. What is === mean?" , "Question 3. what is ||?"]
@@ -23,10 +22,8 @@ var timeLeft = 0
 var lowScore = 0
 var highscore = 0
 
-//display items
+//display timer
 quizTimer.textContent = "Time Remaining: " + timeLeft
-
-//buttons
 
 //initialize/setup the quiz and start the timer
 starterButton.addEventListener("click", function(){
@@ -126,6 +123,7 @@ var highscoreArr = []
 var finalHighscores = ""
 var tempHigh = []
 
+//sorts the local storage highscores and obtain the lowest sccore
 function sortHighscore(){
     if(historicalHiscoreObj === null){
                 return
@@ -137,12 +135,11 @@ function sortHighscore(){
          tempHigh =  tempHigh.sort(function(a,b) {
             return (+a) - (+b);
           });
-          lowScore = tempHigh[0]  
-           
+          lowScore = tempHigh[0]        
     }
 }
 
-// checks if user score is larger than highscore
+// checks if user score is larger than highscore and replace the lowest score
 function updateHighscore(){
             if(highscore > lowScore){
                 var replaceIndex = highscoreArr.indexOf(lowScore)
