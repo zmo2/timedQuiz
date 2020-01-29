@@ -8,7 +8,7 @@ var inQuiz = document.getElementById("inQuiz")
 var restartButton = document.getElementById("homePage")
 var starterButton = document.getElementById("starter")
 var isCorrect = document.getElementById("answerFeedback")
-var historicalHiscoreObj = [JSON.parse(localStorage.getItem("userHighscore"))]
+var historicalHiscoreObj = []
 var topScorerDisplay = document.getElementById("userHighscore")
 var highscoreDisplay = document.getElementById("displayHighscore")
 var clearHighscore = document.getElementById("clearHighscore")
@@ -26,9 +26,7 @@ var highscore = 0
 //display items
 quizTimer.textContent = "Time Remaining: " + timeLeft
 
-
 //buttons
-
 
 //initialize/setup the quiz and start the timer
 starterButton.addEventListener("click", function(){
@@ -36,7 +34,6 @@ starterButton.addEventListener("click", function(){
     inQuiz.style.display = "Block"
     timeLeft = questionsArry.length * 15
     historicalHiscoreObj = JSON.parse(localStorage.getItem("userHighscore"))
-    sortHighscore()
     highscore = 0
     questionToDisplay.textContent = questionsArry[0]
     answersToDisplayA.textContent = answersArry[0][0]
@@ -59,11 +56,9 @@ function clickedButton(){
         isCorrect.textContent = "Correct!"
         } else {
             isCorrect.textContent = "Wrong!"
-            console.log(timeLeft)
             timeLeft = timeLeft - 15
         }
         if(questionsArryCounter >= questionsArry.length){
-            console.log(timeLeft)
             highscore = timeLeft
             timeLeft = 0
             return
@@ -77,7 +72,6 @@ function clickedButton(){
         answersToDisplayD.textContent = answersArry[answersToDisplayCounter][3]
         answersToDisplayCounter ++
         correctAnswerCounter ++
-        sortHighscore()
     }
 
     //function to keep track of timer
@@ -102,8 +96,10 @@ submitEmail.addEventListener("click", saveUser)
 // resets the page back to intro page
 restartButton.addEventListener("click", function(){
     // location.reload(true);
-    console.log(lowScore)
+
     console.log(historicalHiscoreObj)
+    console.log(highscoreArr)
+  
 })
 
 //clears highscores from local storage
@@ -113,47 +109,52 @@ clearHighscore.addEventListener("click", function(){
 
 //saves the highscore if applicable
 function saveUser(){
-    if(historicalHiscoreObj === null || historicalHiscoreObj.length<3){
-        historicalHiscoreObj[historicalHiscoreObj.length] = [{email: document.getElementById("emailInput").value, score: highscore,}]
+    if(historicalHiscoreObj === null){
+        historicalHiscoreObj = [{email: document.getElementById("emailInput").value, score: highscore,}]
+        localStorage.setItem("userHighscore", JSON.stringify(historicalHiscoreObj))
+    } else if(historicalHiscoreObj.length<3){
+        historicalHiscoreObj[historicalHiscoreObj.length] = {email: document.getElementById("emailInput").value, score: highscore,}
         localStorage.setItem("userHighscore", JSON.stringify(historicalHiscoreObj))
     }
     else{
+        sortHighscore()
         updateHighscore()
     }
     topScorerDisplay.textContent = "email: " + historicalHiscoreObj[0].email
     highscoreDisplay.textContent = "score: " + historicalHiscoreObj[0].score
+    // sortHighscore()
 }
 
 var highscoreArr = []
-var topUserArr = []
+var tempHigh = []
 
 function sortHighscore(){
+    debugger
     if(historicalHiscoreObj === null){
                 return
             }else {
                 for(i=0; i<historicalHiscoreObj.length; i++){
                     // topUserArr[i] = historicalHiscoreObj[i].email
                     highscoreArr[i] = historicalHiscoreObj[i].score
+                    tempHigh[i]=historicalHiscoreObj[i].score
+                    console.log(tempHigh)
+                    console.log(historicalHiscoreObj[i].score)
                 }
-          highscoreArr.sort()
-          lowScore = highscoreArr[0]   
+         tempHigh =  tempHigh.sort(function(a,b) {
+            return (+a) - (+b);
+          });
+          console.log(tempHigh)
+          console.log(highscoreArr)
+          lowScore = tempHigh[0]  
+           
     }
 }
-// function to sort historical highscore 
-// function sortScore(){
-//     if(historicalHiscoreObj === null || historicalHiscoreObj.length<2){
-//         return
-//     }else {
-//         for(i=0; i<historicalHiscoreObj.length; i++){
-//             var temp = Object.value(historicalHiscoreObj)
-//             temp.sort()
-//         }
-//     }
 
-// }
 // checks if user score is larger than highscore
 function updateHighscore(){
+       
             if(highscore > lowScore){
+                debugger
                 var replaceIndex = highscoreArr.indexOf(lowScore)
                 historicalHiscoreObj[replaceIndex].score = highscore
                 historicalHiscoreObj[replaceIndex].email = document.getElementById("emailInput").value
