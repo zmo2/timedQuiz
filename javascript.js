@@ -95,11 +95,7 @@ submitEmail.addEventListener("click", saveUser)
 
 // resets the page back to intro page
 restartButton.addEventListener("click", function(){
-    // location.reload(true);
-
-    console.log(historicalHiscoreObj)
-    console.log(highscoreArr)
-  
+    location.reload(true);
 })
 
 //clears highscores from local storage
@@ -120,31 +116,27 @@ function saveUser(){
         sortHighscore()
         updateHighscore()
     }
-    topScorerDisplay.textContent = "email: " + historicalHiscoreObj[0].email
-    highscoreDisplay.textContent = "score: " + historicalHiscoreObj[0].score
-    // sortHighscore()
+    for (i=0;i<historicalHiscoreObj.length;i++){
+        finalHighscores = finalHighscores + historicalHiscoreObj[i].email + ":" + historicalHiscoreObj[i].score + " | "
+    }
+    topScorerDisplay.textContent = finalHighscores
 }
 
 var highscoreArr = []
+var finalHighscores = ""
 var tempHigh = []
 
 function sortHighscore(){
-    debugger
     if(historicalHiscoreObj === null){
                 return
             }else {
                 for(i=0; i<historicalHiscoreObj.length; i++){
-                    // topUserArr[i] = historicalHiscoreObj[i].email
                     highscoreArr[i] = historicalHiscoreObj[i].score
                     tempHigh[i]=historicalHiscoreObj[i].score
-                    console.log(tempHigh)
-                    console.log(historicalHiscoreObj[i].score)
                 }
          tempHigh =  tempHigh.sort(function(a,b) {
             return (+a) - (+b);
           });
-          console.log(tempHigh)
-          console.log(highscoreArr)
           lowScore = tempHigh[0]  
            
     }
@@ -152,9 +144,7 @@ function sortHighscore(){
 
 // checks if user score is larger than highscore
 function updateHighscore(){
-       
             if(highscore > lowScore){
-                debugger
                 var replaceIndex = highscoreArr.indexOf(lowScore)
                 historicalHiscoreObj[replaceIndex].score = highscore
                 historicalHiscoreObj[replaceIndex].email = document.getElementById("emailInput").value
